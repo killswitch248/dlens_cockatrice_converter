@@ -90,3 +90,4 @@ while filecounter < len(csvnames) :
         filecounter = filecounter + 1
     
 keyboardinput = msvcrt.getwch()
+del keyboardinput
