@@ -1,4 +1,4 @@
-#   dlens_cockatrice_converter ver. 2
+#   dlens_cockatrice_converter ver. 2.1
 #
 #   converts delver lens card lists exported via .csv into 
 #   cockatrice-importable .cod files
@@ -29,8 +29,8 @@
 #   converter with python 3.x, then import the created .cod into cockatrice.
 #
 
-
-import os, csv, msvcrt
+import msvcrt
+import os, csv
 
 print('searching for .csv files ...')
 
@@ -51,7 +51,6 @@ while counter < len(csvnames) :
     counter = counter + 1
 
 filecounter = 0
-
 while filecounter < len(csvnames) :
     print(f'{csvnames[filecounter]}.csv detected ...')
 
@@ -67,11 +66,18 @@ while filecounter < len(csvnames) :
         codfile.write(f'\n\t<comments></comments>')
         codfile.write(f'\n\t<zone name=\"main\">')
 
+        print(csvlist)
+
         try :
             counter = 1
             while counter < len(csvlist) :
                 codfile.write(f'\n\t\t<card number=\"{csvlist[counter][0][:-1]}\" name=\"')
-                codfile.write(fr'{csvlist[counter][1]}')
+
+                if "'" in csvlist[counter][1] :
+                    codfile.write(fr"{csvlist[counter][1]}")
+                else :
+                    codfile.write(fr'{csvlist[counter][1]}')
+
                 codfile.write(f'\"/>')
                 counter = counter + 1
 
